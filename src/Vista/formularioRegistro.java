@@ -5,30 +5,74 @@
  */
 package Vista;
 
-import Controlador.conexion;
+import Modelo.conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author HP
  */
-public class RegristroNC extends javax.swing.JFrame {
+public class formularioRegistro extends javax.swing.JFrame {
 
     /**
      * Creates new form RegristroNC
      */
-    public RegristroNC() {
+    public formularioRegistro() {
         initComponents();
         limpiar();
         bloquear();
-        
+        //MostrarDatos();
         this.setLocationRelativeTo(null);
     }
+    /*void MostrarDatos (){
+        DefaultTableModel modelo= new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("CI");
+        modelo.addColumn("Fecha Nacimiento");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Licencia de Conducir");
+        modelo.addColumn("Fecha de Ingreso");
+        modelo.addColumn("Barrio");
+        modelo.addColumn("Estado Civil");
+        modelo.addColumn("Sexo");
+        tbMuestra.setModel(modelo);
+        conexion con = new conexion();
+        Connection cn = con.getConexion();
+        String []datos = new String [12];
+        try {
+            Statement  st= cn.createStatement ();
+            ResultSet rs= st.executeQuery("SELECT * FROM  personas");
+            while (rs.next()){
+                datos [0]=rs.getString(1);
+                datos [1]=rs.getString(2);
+                datos [2]=rs.getString(3);
+                datos [3]=rs.getString(4);
+                datos [4]=rs.getString(5);
+                datos [5]=rs.getString(6);
+                datos [6]=rs.getString(7);
+                datos [7]=rs.getString(8);
+                datos [8]=rs.getString(9);
+                datos [9]=rs.getString(10);
+                datos [10]=rs.getString(11);
+                datos [11]=rs.getString(12);
+                modelo.addRow(datos);
+            }
+            tbMuestra.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificacionCRR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
     void limpiar (){
         txtNombre.setText("");
         txtApellido.setText("");
@@ -59,6 +103,7 @@ public class RegristroNC extends javax.swing.JFrame {
         btnGuardar.setEnabled(false);
         btnVolver.setEnabled(true);
         btnCancelar.setEnabled(false);
+        btnActualizar.setEnabled(false);
     }
     void desbloquear (){
         txtNombre.setEnabled(true);
@@ -76,6 +121,7 @@ public class RegristroNC extends javax.swing.JFrame {
         btnGuardar.setEnabled(true);
         btnVolver.setEnabled(false);
         btnCancelar.setEnabled(true);
+        btnActualizar.setEnabled(true);
     }
    
 
@@ -103,7 +149,6 @@ public class RegristroNC extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtLDC = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
         btnNuevoRegistro = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
@@ -118,6 +163,8 @@ public class RegristroNC extends javax.swing.JFrame {
         txtSex = new javax.swing.JTextField();
         txtDir = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        btnActualizar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -153,13 +200,6 @@ public class RegristroNC extends javax.swing.JFrame {
         jLabel11.setText("Sexo:");
 
         jLabel12.setText("Adjuntar Fotos de Vehiculo");
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         btnNuevoRegistro.setText("Nuevo Registro");
         btnNuevoRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -249,40 +289,59 @@ public class RegristroNC extends javax.swing.JFrame {
 
         jLabel13.setText("Direccion:");
 
+        btnActualizar.setText("Actualizar Registro");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar Registro");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btnVolver)
-                .addGap(123, 123, 123)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel12)
-                .addGap(79, 79, 79))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(txtLDC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtApellido))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCI))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(10, 10, 10)
-                                .addComponent(txtNombre)))
-                        .addGap(285, 285, 285))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVolver)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtDir))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(456, 456, 456)
+                        .addComponent(txtLDC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(txtNombre))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCI, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -306,40 +365,29 @@ public class RegristroNC extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNuevoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDir))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(179, 179, 179)
+                        .addComponent(jLabel12)
+                        .addGap(134, 134, 134))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnVolver)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnVolver)
-                            .addGap(26, 26, 26))
-                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel12))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -386,9 +434,10 @@ public class RegristroNC extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevoRegistro)
+                    .addComponent(btnActualizar)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(txtLDC))
         );
 
@@ -406,48 +455,6 @@ public class RegristroNC extends javax.swing.JFrame {
         txtNombre.requestFocus();
         desbloquear();
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-            bloquear();
-            conexion con = new conexion();
-            Connection cn = con.getConexion();
-            String nom,ape,ci,ncp,tel,fchn,lcp,fip,barr,etcp,sex,dir;
-            String SQL ="";
-            nom=txtNombre.getText();
-            ape=txtApellido.getText();
-            ci=txtCI.getText();
-            fchn=txtFechaN.getText();
-            tel=txtTel.getText();
-            dir=txtDir.getText();
-            lcp=txtLD1.getText();
-            fip=txtFI.getText();
-            barr=txtBarrio.getText();
-            etcp=txtEC.getText();
-            sex=txtSex.getText();
-            SQL="INSERT INTO personas (NOMB_PERS,APELL_PERS,CI_PERS,NACI_PERS,TELEFONO,DIREC_PERSONA,LIC_COND_PERSONA,FECH_INGR_PERSONA,BARRIOS_ID_BARRIOS,EST_CIVIL_PERSONA,SEX_PERSONA) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement pst=cn.prepareStatement(SQL);
-            pst.setString(1,nom);
-            pst.setString(2,ape);
-            pst.setString(3,ci);
-            pst.setString(4,fchn);
-            pst.setString(5,tel);
-            pst.setString(6,dir);
-            pst.setString(7,lcp);
-            pst.setString(8,fip);
-            pst.setString(9,barr);
-            pst.setString(10,etcp);
-            pst.setString(11,sex);
-            int n=pst.executeUpdate();
-            if (n>0){
-                JOptionPane.showMessageDialog(null,"Registro Guadado");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(RegristroNC.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        limpiar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         bloquear();
@@ -485,16 +492,31 @@ txtFI.transferFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtFIActionPerformed
 
     private void txtBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBarrioActionPerformed
-txtBarrio.transferFocus();        // TODO add your handling code here:
+        txtBarrio.transferFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtBarrioActionPerformed
 
     private void txtECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtECActionPerformed
-txtEC.transferFocus();        // TODO add your handling code here:
+        txtEC.transferFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtECActionPerformed
 
     private void txtSexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSexActionPerformed
-txtSex.transferFocus();        // TODO add your handling code here:
+        txtSex.transferFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_txtSexActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        bloquear();
+        conexion con = new conexion();
+        Connection cn = con.getConexion();
+        try { 
+            PreparedStatement psi = cn.prepareStatement("UPDATE personas SET NOMB_PERS='"+txtNombre.getText()+"',APELL_PERS='"+txtApellido.getText()+"',NACI_PERS='"+txtFechaN.getText()+"',TELEFONO='"+txtTel.getText()+"',DIREC_PERSONA='"+txtDir.getText()+"',FECH_INGR_PERSONA='"+txtFI.getText()+"',BARRIOS_ID_BARRIOS='"+txtBarrio.getText()+"',EST_CIVIL_PERSONA='"+txtEC.getText()+"',SEX_PERSONA='"+txtSex.getText()+"' WHERE CI_PERS='"+txtCI.getText()+"'");
+            psi.executeUpdate();
+        } catch (SQLException ex) {
+            //Logger.getLogger(formularioRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print(ex.getMessage());
+        }
+        this.dispose(); 
+    }//GEN-LAST:event_btnActualizarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -513,28 +535,30 @@ txtSex.transferFocus();        // TODO add your handling code here:
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegristroNC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegristroNC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegristroNC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegristroNC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formularioRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegristroNC().setVisible(true);
+                new formularioRegistro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnNuevoRegistro;
+    public javax.swing.JButton btnActualizar;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnNuevoRegistro;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -550,17 +574,17 @@ txtSex.transferFocus();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtBarrio;
-    private javax.swing.JTextField txtCI;
-    private javax.swing.JTextField txtDir;
-    private javax.swing.JTextField txtEC;
-    private javax.swing.JTextField txtFI;
-    private javax.swing.JTextField txtFechaN;
-    private javax.swing.JTextField txtLD1;
+    public static javax.swing.JTextField txtApellido;
+    public static javax.swing.JTextField txtBarrio;
+    public static javax.swing.JTextField txtCI;
+    public static javax.swing.JTextField txtDir;
+    public static javax.swing.JTextField txtEC;
+    public static javax.swing.JTextField txtFI;
+    public static javax.swing.JTextField txtFechaN;
+    public static javax.swing.JTextField txtLD1;
     private javax.swing.JLabel txtLDC;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtSex;
-    private javax.swing.JTextField txtTel;
+    public static javax.swing.JTextField txtNombre;
+    public static javax.swing.JTextField txtSex;
+    public static javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables
 }

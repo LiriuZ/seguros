@@ -5,10 +5,12 @@
  */
 package Vista;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import Controlador.CTRLRegistro;
+import Modelo.Registro;
+import Modelo.consultasRegistro;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -49,7 +51,12 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        btnModificarDA.setText("Modificar Datos de Asegurados");
+        btnModificarDA.setText("Asegurados Registrados");
+        btnModificarDA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDAActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Regresar a Login");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -63,10 +70,10 @@ public class Adm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnModificarDA)
-                    .addComponent(btnRegistrarNC))
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRegistrarNC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnModificarDA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(103, 103, 103))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -89,16 +96,27 @@ public class Adm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarNCActionPerformed
-       RegristroNC nc=new RegristroNC();
-       nc.setVisible(true);
+        Registro mod = new Registro();
+        consultasRegistro modC =new consultasRegistro();
+        formularioRegistro frm = new formularioRegistro();
+        CTRLRegistro ctrl = new CTRLRegistro(mod, modC, frm);
+        ctrl.iniciar();
+        frm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarNCActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        Login bck = new Login();
+        formularioLogin bck = new formularioLogin();
         bck.setVisible(true);
         this.dispose(); 
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnModificarDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDAActionPerformed
+        ModificacionCRR nc=new ModificacionCRR();
+        nc.setVisible(true);
+         this.dispose(); 
+    }//GEN-LAST:event_btnModificarDAActionPerformed
 
     /**
      * @param args the command line arguments

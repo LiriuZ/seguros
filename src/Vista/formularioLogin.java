@@ -5,27 +5,39 @@
  */
 package Vista;
 
-import Controlador.conexion;
-import java.awt.Color;
+import Controlador.CTRLLogin;
+//import Controlador.CTRLRegistro;
+import Modelo.Login;
+import Modelo.conexion;
+//import Modelo.Registro;
+//import Modelo.conexion;
+import Modelo.consultasLogin;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+//import Modelo.consultasRegistro;
+//import java.awt.Color;
+//import java.sql.Connection;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import javax.swing.JOptionPane;
 
 /**
  *
  * @author HP
  */
-public class Login extends javax.swing.JFrame {
+public class formularioLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public formularioLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.RED);
+        //this.getContentPane().setBackground(Color.RED);
     }
 
     /**
@@ -83,8 +95,6 @@ public class Login extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Pictures\\Saved Pictures\\descargar.png")); // NOI18N
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,6 +171,13 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         }
+        /*Login modq = new Login();
+        consultasLogin modCq = new consultasLogin();
+        formularioLogin frmq = new formularioLogin();
+        CTRLLogin ctrli = new CTRLLogin(modq, modCq, frmq);
+        ctrli.iniciar();
+        frmq.setVisible(true);
+        this.dispose();*/ 
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -213,40 +230,41 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class
+            java.util.logging.Logger.getLogger(formularioLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class
+            java.util.logging.Logger.getLogger(formularioLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class
+            java.util.logging.Logger.getLogger(formularioLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class
+            java.util.logging.Logger.getLogger(formularioLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new formularioLogin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton btnSalir;
+    public javax.swing.JButton btnIngresar;
+    public javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JPasswordField txtPassword;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
 }
